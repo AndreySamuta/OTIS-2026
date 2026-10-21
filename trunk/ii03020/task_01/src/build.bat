@@ -89,7 +89,7 @@ if not exist "CMakeLists.txt" (
 
 set "SRC_COUNT=0"
 for %%f in (main.cpp InputGenerator.cpp Linear_Model.cpp ^
-            Non_linear_Model.cpp Simple_Differential_Equation.cpp ^
+            Non_Linear_Model.cpp Simple_Differential_Equation.cpp ^
             TableOutput.cpp Plotter.cpp) do (
     if exist "%%f" (
         set /a SRC_COUNT+=1
