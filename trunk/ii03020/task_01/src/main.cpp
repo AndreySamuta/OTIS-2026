@@ -6,7 +6,7 @@
 #include <system_error>
 
 #include "Linear_Model.h"
-#include "Non_linear_Model.h"
+#include "Non_Linear_Model.h"
 #include "Simple_Differential_Equation.h"
 #include "TableOutput.h"
 #include "Plotter.h"
