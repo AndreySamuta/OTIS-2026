@@ -1,4 +1,4 @@
-#include "Non_linear_Model.h"
+#include "Non_Linear_Model.h"
 #include <cmath>
 
 Non_linear_Model::Non_linear_Model(double a, double b, double c, double d,
