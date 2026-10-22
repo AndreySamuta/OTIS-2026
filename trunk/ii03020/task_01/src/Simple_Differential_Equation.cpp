@@ -3,7 +3,7 @@
 
 Simple_Differential_Equation::Simple_Differential_Equation(
         double b, double dt, int type, double u_const)
-    : b(b), dt(dt), y(0), last_u(0), input(type, u_const) {}
+    : b(b), dt(dt), input(type, u_const) {}
 
 double Simple_Differential_Equation::NextStep() {
     last_u = input.Next();

@@ -3,8 +3,15 @@
 #include "InputGenerator.h"
 
 class Linear_Model : public Model {
-    double a, b1, b2, b3;
-    double y, u_t, u_t1, u_t2, last_u;
+    double a;
+    double b1;
+    double b2;
+    double b3;
+    double y = 0;
+    double u_t = 0;
+    double u_t1 = 0;
+    double u_t2 = 0;
+    double last_u = 0;
     InputGenerator input;
 public:
     Linear_Model(double a, double b1, double b2, double b3,

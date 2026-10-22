@@ -3,7 +3,6 @@
 Linear_Model::Linear_Model(double a, double b1, double b2, double b3,
                            int type, double u_const)
     : a(a), b1(b1), b2(b2), b3(b3),
-      y(0), u_t(0), u_t1(0), u_t2(0), last_u(0),
       input(type, u_const) {}
 
 double Linear_Model::NextStep() {

@@ -1,11 +1,11 @@
 #pragma once
 
 class InputGenerator {
-    int    type;
-    int    t;
+    int type;
+    int t = 0;
     double constant_u;
 public:
-    InputGenerator(int type = 0, double constant_u = 0.0);
+    explicit InputGenerator(int type = 0, double constant_u = 0.0);
     double Next();
     void   Reset();
 };

@@ -2,7 +2,7 @@
 #include <cmath>
 
 InputGenerator::InputGenerator(int type, double constant_u)
-    : type(type), t(0), constant_u(constant_u) {}
+    : type(type), constant_u(constant_u) {}
 
 double InputGenerator::Next() {
     double u;

@@ -30,8 +30,7 @@ bool Plotter::is_gnuplot_available() {
 
 bool Plotter::run_gnuplot(const std::string& plot_file) {
     std::string cmd = "gnuplot \"" + plot_file + "\"";
-    int rc = std::system(cmd.c_str());
-    if (rc != 0) {
+    if (int rc = std::system(cmd.c_str()); rc != 0) {
         std::cerr << "Не удалось выполнить gnuplot. Проверьте, что он "
                      "установлен и прописан в PATH.\n"
                   << "Скрипт сохранён: " << plot_file

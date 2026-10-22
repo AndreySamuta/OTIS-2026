@@ -4,7 +4,6 @@
 Non_linear_Model::Non_linear_Model(double a, double b, double c, double d,
                                    int type, double u_const)
     : a(a), b(b), c(c), d(d),
-      y(0), y_prev(0), u_t(0), u_t1(0), last_u(0),
       input(type, u_const) {}
 
 double Non_linear_Model::NextStep() {

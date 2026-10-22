@@ -3,8 +3,10 @@
 #include "InputGenerator.h"
 
 class Simple_Differential_Equation : public Model {
-    double b, dt;
-    double y, last_u;
+    double b;
+    double dt;
+    double y = 0;
+    double last_u = 0;
     InputGenerator input;
 public:
     Simple_Differential_Equation(double b, double dt,

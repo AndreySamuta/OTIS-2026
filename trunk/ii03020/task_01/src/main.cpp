@@ -23,7 +23,9 @@ int main() {
         SetConsoleCP(CP_UTF8);
     #endif
 
-    int    input_type, steps, plot_choice;
+    int input_type;
+    int steps;
+    int plot_choice;
     double u_const = 0.0;
 
     cout << "Выберите входное воздействие:\n"
@@ -58,8 +60,14 @@ int main() {
         invoke = false;
     }
 
-    double a = 0.9, b = 0.5, c = 1.0, d = 2.0;
-    double b1 = 1.0, b2 = 0.5, b3 = 0.25;
+    double a = 0.9;
+    double b = 0.5;
+    double c = 1.0;
+    double d = 2.0;
+
+    double b1 = 1.0;
+    double b2 = 0.5;
+    double b3 = 0.25;
 
     bool ok = true;
 
@@ -104,12 +112,12 @@ int main() {
     cout << "\nОчистка временных файлов...\n";
 
     // Список файлов для удаления
-    const char* files_to_delete[] = {
+    std::vector<std::string> files_to_delete = {
         "linear_model.csv", "nonlinear_model.csv", "sde_model.csv",
         "linear_model.plt", "nonlinear_model.plt", "sde_model.plt", "comparison.plt"
     };
 
-    for (const char* file : files_to_delete) {
+    for (const auto& file : files_to_delete) {
         std::error_code ec;
         // Пытаемся удалить файл
         bool removed = std::filesystem::remove(file, ec);
