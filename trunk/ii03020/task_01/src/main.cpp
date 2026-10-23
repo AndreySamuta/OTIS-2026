@@ -179,7 +179,7 @@ int main() {
     for (const auto& file : files_to_delete) {
         std::error_code ec;
         // Пытаемся удалить файл
-        bool removed = std::filesystem::remove(file, ec);
+        std::filesystem::remove(file, ec);
     }
     }
 
