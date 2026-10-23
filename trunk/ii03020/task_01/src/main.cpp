@@ -153,6 +153,7 @@ int main() {
             system("start \"\" sde_model.png");
         break;
     }
+    default: break;
     }
 
     char type;
