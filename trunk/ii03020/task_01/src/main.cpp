@@ -102,12 +102,12 @@ int main() {
                           "linear_model.plt",
                           "linear_model.png",
                           "Linear model", invoke);
-        
+
         cout << "\nГотово. Файл результата:\n"
          << "  linear_model.png\n";
         
         if(plot_choice == 'Y' || plot_choice == 'y')
-            system("start \"\" linear_model.png");
+            system("start \"\" linear_model.png");  
         break;
     }
     case 1:
@@ -179,15 +179,6 @@ int main() {
         std::error_code ec;
         // Пытаемся удалить файл
         bool removed = std::filesystem::remove(file, ec);
-        
-        if (removed) {
-            cout << "Удален: " << file << "\n";
-        } else if (ec) {
-            // Если произошла ошибка, выводим её
-            cout << "НЕ УДАЛЕН: " << file << " (Ошибка: " << ec.message() << ")\n";
-        } else {
-            cout << "Пропущен (файл не найден): " << file << "\n";
-        }
     }
     }
 
