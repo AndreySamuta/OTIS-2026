@@ -25,7 +25,8 @@ int main() {
 
     int input_type;
     int steps;
-    int plot_choice;
+    char plot_choice;
+    int model_type;
     double u_const = 0.0;
 
     cout << "Выберите входное воздействие:\n"
@@ -34,10 +35,12 @@ int main() {
          << "  2 - гармоническое sin(τ)\n"
          << "Ваш выбор: ";
     cin >> input_type;
+    cout << endl;
 
     if (input_type == 0) {
         cout << "Введите постоянное значение u: ";
         cin >> u_const;
+        cout << endl;
     }
 
     cout << "Введите количество шагов симуляции: ";
@@ -46,13 +49,15 @@ int main() {
         cerr << "Ошибка: количество шагов должно быть > 0\n";
         return 1;
     }
+    cout << endl;
 
     cout << "Запустить gnuplot для построения графиков?\n"
-         << "  1 - да (нужен gnuplot в PATH)\n"
-         << "  0 - только сохранить .plt-скрипты\n"
+         << "  Y - да (нужен gnuplot в PATH)\n"
+         << "  N - только сохранить .plt-скрипты\n"
          << "Ваш выбор: ";
     cin >> plot_choice;
-    bool invoke = (plot_choice != 0);
+    cout << endl;
+    bool invoke = (plot_choice != 'N' || plot_choice != 'n');
 
     if (invoke && !Plotter::is_gnuplot_available()) {
         cerr << "Внимание: gnuplot не найден в PATH. "
@@ -60,55 +65,108 @@ int main() {
         invoke = false;
     }
 
-    double a = 0.9;
-    double b = 0.5;
-    double c = 1.0;
-    double d = 2.0;
+    double a;
+    double b;
+    double c;
+    double d;
 
-    double b1 = 1.0;
-    double b2 = 0.5;
-    double b3 = 0.25;
+    double b1;
+    double b2;
+    double b3;
 
     bool ok = true;
 
+    cout << "Выберите тип модели:\n"
+         << "  0 - Линейная\n"
+         << "  1 - Нелинейная\n"
+         << "  2 - Дифференциальное\n"
+         << "Ваш выбор: ";
+    cin >> model_type;
+    cout << endl;
+
+    switch(model_type){
+    case 0:
     {
+        cout << "Введите значение параметра a: ";
+        cin >> a;
+         cout << "Введите значение параметра b1: ";
+        cin >> b1;
+        cout << "Введите значение параметра b2: ";
+        cin >> b2;
+        cout << "Введите значение параметра b3: ";
+        cin >> b3;
+
         Linear_Model m(a, b1, b2, b3, input_type, u_const);
         ok = run_and_report(m, steps, "Линейная модель", "linear_model.csv") && ok;
         Plotter::plot_csv("linear_model.csv",
                           "linear_model.plt",
                           "linear_model.png",
                           "Linear model", invoke);
+        
+        cout << "\nГотово. Файл результата:\n"
+         << "  linear_model.png\n";
+        
+        if(plot_choice == 'Y' || plot_choice == 'y')
+            system("start \"\" linear_model.png");
+        break;
     }
+    case 1:
     {
+        cout << "Введите значение параметра a: ";
+        cin >> a;
+        cout << "Введите значение параметра b: ";
+        cin >> b;
+        cout << "Введите значение параметра c: ";
+        cin >> c;
+        cout << "Введите значение параметра d: ";
+        cin >> d;
+
         Non_linear_Model m(a, b, c, d, input_type, u_const);
         ok = run_and_report(m, steps, "Нелинейная модель", "nonlinear_model.csv") && ok;
         Plotter::plot_csv("nonlinear_model.csv",
                           "nonlinear_model.plt",
                           "nonlinear_model.png",
                           "Nonlinear model", invoke);
+            
+        cout << "\nГотово. Файл результата:\n"
+         << "  nonlinear_model.png\n";
+
+        if(plot_choice == 'Y' || plot_choice == 'y')
+            system("start \"\" nonlinear_model.png");
+        break;
     }
+    case 2:
     {
+        cout << "Введите значение параметра b: ";
+        cin >> b;
+
         Simple_Differential_Equation m(b, 0.1, input_type, u_const);
         ok = run_and_report(m, steps, "Дифференциальное уравнение", "sde_model.csv") && ok;
         Plotter::plot_csv("sde_model.csv",
                           "sde_model.plt",
                           "sde_model.png",
                           "Differential equation", invoke);
+        cout << "\nГотово. Файл результата:\n"
+         << "  sde_model.png\n";
+        
+        if(plot_choice == 'Y' || plot_choice == 'y')
+            system("start \"\" sde_model.png");
+        break;
+    }
     }
 
-    // Сводный график: y(step) всех трёх моделей на одной картинке
-    Plotter::plot_comparison(
-        {"linear_model.csv", "nonlinear_model.csv", "sde_model.csv"},
-        {"Linear", "Nonlinear", "SDE"},
-        "comparison.plt",
-        "comparison.png",
-        "Model comparison", invoke);
+    char type;
 
-    cout << "\nГотово. Файлы результатов:\n"
-         << "  linear_model.png\n"
-         << "  nonlinear_model.png\n"
-         << "  sde_model.png\n";
+    cout << endl;
+    cout << "Нужно удалять временные файлы?\n"
+         << "  Y - да\n"
+         << "  N - нет\n"
+         << "Ваш выбор: ";
+    cin >> type;
+    cout << endl;
 
+    if(type == 'Y' || type == 'y')
+    {
     cout << "\nОчистка временных файлов...\n";
 
     // Список файлов для удаления
@@ -130,6 +188,7 @@ int main() {
         } else {
             cout << "Пропущен (файл не найден): " << file << "\n";
         }
+    }
     }
 
     return ok ? 0 : 1;

@@ -185,9 +185,11 @@ for %%f in (linear_model.plt nonlinear_model.plt sde_model.plt comparison.plt) d
 )
 
 echo.
-echo Открыть папку с результатами? ^(1 - да, 0 - нет^)
+echo Открыть папку с результатами? ^(Y - да, N - нет^)
 set /p "OPEN_DIR=Выбор: "
-if "!OPEN_DIR!"=="1" start "" explorer "%ROOT%"
+if "!OPEN_DIR!"=="Y" (
+    start "" explorer "%ROOT%"
+) else if "!OPEN_DIR!"=="y" (start "" explorer "%ROOT%")
 
 echo.
 pause

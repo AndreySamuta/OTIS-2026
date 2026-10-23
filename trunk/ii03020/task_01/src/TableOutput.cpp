@@ -19,6 +19,7 @@ vector<SimRow> simulate(Model& m, int steps) {
 
 void write_table(const vector<SimRow>& rows, ostream& out, char sep) {
     out << "step" << sep << "y" << sep << "u_used\n";
+    out << "==================================\n";
     out << fixed << setprecision(6);
     for (const auto& r : rows) {
         out << r.step << sep << r.y << sep;
@@ -26,6 +27,7 @@ void write_table(const vector<SimRow>& rows, ostream& out, char sep) {
         else           out << "-";
         out << "\n";
     }
+    out << "==================================\n";
     out << defaultfloat;
 }
 
